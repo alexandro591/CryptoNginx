@@ -8,13 +8,18 @@ networks:
         - subnet: 10.20.20.0/24
 
 services:
-  db:
+  nginx:
     container_name: cryptonginx
     build: .
     image: 'cryptonginx'
     networks:
       CryptoNetwork:
         ipv4_address: 10.20.20.4
+    command: >
+      bash -c "service nginx start &&
+      sleep infinity"
     ports:
       - '80:80'
+      - '443:443'
     restart: always
+    tty: true
